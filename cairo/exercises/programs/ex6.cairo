@@ -18,10 +18,12 @@ func sum_rec(i: felt, n: felt, array: felt*, total: felt) -> (i: felt, n: felt, 
     %{
         _, remainder = divmod(ids.a, 2)
     %}
-
+    tempvar newTotal;
     if(remainder == 0){
-        let total = total + a;
+        newTotal= total + a;
+    } else {
+        newTotal = total;
     }
     let i = i+1;
-    return sum_rec(i,n,array,total);
+    return sum_rec(i,n,array,newTotal);
 }
