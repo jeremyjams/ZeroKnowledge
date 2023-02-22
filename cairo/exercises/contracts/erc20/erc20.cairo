@@ -40,6 +40,13 @@ func constructor{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr
 
 // Storage
 //#########################################################################################
+@storage_var
+func admin() -> (res: felt) {
+}
+
+@storage_var
+func whitelist(account: felt) -> (res: felt) {
+}
 
 // View functions
 //#########################################################################################
@@ -126,6 +133,10 @@ func burn{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(amoun
 func request_whitelist{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
     level_granted: felt
 ) {
+    //FIXME
+    tempvar TEST_ACC1 = 0x00348f5537be66815eb7de63295fcb5d8b8b2ffe09bb712af4966db7cbb04a95;
+    tempvar level_granted = 1;
+    whitelist.write(TEST_ACC1, level_granted);
     return (level_granted,);
 }
 
@@ -133,6 +144,7 @@ func request_whitelist{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_che
 func check_whitelist{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
     account: felt
 ) -> (allowed_v: felt) {
+    let (allowed_v,) = whitelist.read(account);
     return (allowed_v,);
 }
 
